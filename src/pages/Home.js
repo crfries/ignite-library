@@ -11,7 +11,8 @@ import GameDetail from "../components/GameDetail";
 
 //Styling and Animation
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
+import { fadeIn } from "../animations";
 
 const Home = () => {
   //get current location
@@ -21,7 +22,7 @@ const Home = () => {
   //sets a dispatch variable for redux
   const dispatch = useDispatch();
 
-  //this will dispatch the the loadgames state on mount
+  //this will dispatch the loadgames state on mount
   useEffect(() => {
     dispatch(loadGames());
   }, [dispatch]);
@@ -29,49 +30,79 @@ const Home = () => {
   // above dispatch is added so useeffect only runs when dispatch is ran
 
   //Get the data from the state
-  const { popular, upcoming, newGames } = useSelector((state) => state.games);
+  const { popular, upcoming, newGames, searched } = useSelector(
+    (state) => state.games
+  );
 
   return (
     <GameList>
-      {pathId && <GameDetail />}
-      <h1>Upcoming Games</h1>
-      <Games>
-        {upcoming.map((game) => (
-          <Game
-            name={game.name}
-            released={game.released}
-            id={game.id}
-            image={game.background_image}
-            key={game.id}
-          />
-        ))}
-      </Games>
-
-      <h1>Popular Games</h1>
-      <Games>
-        {popular.map((game) => (
-          <Game
-            name={game.name}
-            released={game.released}
-            id={game.id}
-            image={game.background_image}
-            key={game.id}
-          />
-        ))}
-      </Games>
-
-      <h1>New Games</h1>
-      <Games>
-        {newGames.map((game) => (
-          <Game
-            name={game.name}
-            released={game.released}
-            id={game.id}
-            image={game.background_image}
-            key={game.id}
-          />
-        ))}
-      </Games>
+      <AnimateSharedLayout type="crossfade">
+        <AnimatePresence>
+          {pathId && <GameDetail pathId={pathId} />}
+        </AnimatePresence>
+        {searched.length ? (
+          <div className="searched">
+            <motion.h1 variants={fadeIn} initial="hidden" animate="show">
+              Searched Games
+            </motion.h1>
+            <Games>
+              {searched.map((game) => (
+                <Game
+                  name={game.name}
+                  released={game.released}
+                  id={game.id}
+                  image={game.background_image}
+                  key={game.id}
+                />
+              ))}
+            </Games>
+          </div>
+        ) : (
+          ""
+        )}
+        <motion.h1 variants={fadeIn} initial="hidden" animate="show">
+          Upcoming Games
+        </motion.h1>
+        <Games>
+          {upcoming.map((game) => (
+            <Game
+              name={game.name}
+              released={game.released}
+              id={game.id}
+              image={game.background_image}
+              key={game.id}
+            />
+          ))}
+        </Games>
+        <motion.h1 variants={fadeIn} initial="hidden" animate="show">
+          Popular Games
+        </motion.h1>
+        <Games>
+          {popular.map((game) => (
+            <Game
+              name={game.name}
+              released={game.released}
+              id={game.id}
+              image={game.background_image}
+              key={game.id}
+            />
+          ))}
+        </Games>
+        <motion.h1 variants={fadeIn} initial="hidden" animate="show">
+          New Games
+        </motion.h1>
+        <Games>
+          {newGames.map((game) => (
+            <Game
+              name={game.name}
+              released={game.released}
+              id={game.id}
+              image={game.background_image}
+              key={game.id}
+            />
+          ))}
+        </Games>
+      </AnimateSharedLayout>
     </GameList>
   );
 };

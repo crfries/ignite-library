@@ -40,6 +40,10 @@ const GlobalStyles = createGlobalStyle`
         padding: 1.5rem;
     }
 
+    img {
+        display: block;
+    }
+
     p {
         font-size: 1.2rem;
         line-height: 200%;
