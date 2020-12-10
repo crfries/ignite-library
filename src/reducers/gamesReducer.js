@@ -5,6 +5,9 @@ const initState = {
   searched: [],
 };
 
+
+//here we set the payloads from the action and set the case for each state. empty arrays are set as initial state to prevent the return of undefined
+
 const gamesReducer = (state = initState, action) => {
   switch (action.type) {
     case "FETCH_GAMES":

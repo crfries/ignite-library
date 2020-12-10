@@ -7,6 +7,8 @@ import { useState } from "react";
 import { fadeIn } from "../animations";
 
 const Nav = () => {
+  //a state is created to capture search input. anytime change happens inputhandler is executed which captures the event target value and sets it to the set state. loading is prevented from refresh and we empty the input field. the search field can be cleared by clicking on the logo from the dispatch we set it to earlier.
+  
   const dispatch = useDispatch();
 
   const [textInput, setTextInput] = useState("");

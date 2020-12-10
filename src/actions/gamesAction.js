@@ -7,6 +7,7 @@ import {
 } from "../api";
 
 //Action Creator
+//This will import the url functions to the action to dispatch with axios. we use async and await to make sure the api is loaded before moving on. these functions get exported to their appropriate reducer. we set the payload with the results from the api we requested.
 
 export const loadGames = () => async (dispatch) => {
   //FETCH AXIOS

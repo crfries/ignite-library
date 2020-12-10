@@ -4,6 +4,8 @@ const initialState = {
   isLoading: true,
 };
 
+
+
 const detailReducer = (state = initialState, action) => {
   switch (action.type) {
     case "GET_DETAIL":
